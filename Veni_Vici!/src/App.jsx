@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import PreviousCats from './components/PreviousCats';
+import BanCats from './components/BanCats';
 
 const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
@@ -8,8 +9,9 @@ function App() {
   // State variables for current image, previous images, and ban images
   const [currentImage, setCurrentImage] = useState(null);
   const [prevImages, setPrevImages] = useState([]);
-  const [banImages, setBanImages] = useState([]);
-  const [catInfo, setCatInfo]= useState({life_span:"", origin: "", weight:""})
+  const [banList, setBanList] = useState({life_span:"", origin: "", weight:""});
+  const [catInfo, setCatInfo]= useState({image: "",life_span:"", origin: "", weight:""})
+  const [prevInfo, setPrevInfo]= useState([])
  
 
 // Function to fetch data from the API
@@ -33,9 +35,10 @@ function App() {
       if (!json[0]||!json[0].url) {
         alert("Oops! Something went wrong with that query, let's try again!");
       } else {
-        setCurrentImage(json[0].url);
-        setPrevImages((images) => [...images, json[0].url]);
-        setCatInfo({life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric });
+        // setCurrentImage(json[0].url);
+        // setPrevImages((images) => [...images, json[0].url]);
+        setCatInfo({image: json[0].url, life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric });
+        setPrevInfo((info) => [...info, {image: json[0].url, life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric }]);
       }
     } catch (error) {
       console.error("Error fetching data from API:", error);
@@ -49,6 +52,12 @@ function App() {
     callAPI(query).catch(console.error);
   }
 
+  const banAttribute =(type, value)=>{
+    // setBanList(prev=>({
+    //   ...prev, [type]: [new Set([...prev[type],value])]
+    // }));
+  };
+
 
   return (
     <>
@@ -56,23 +65,26 @@ function App() {
       <h1>cats, Cats, & more CATS!!!</h1>
       <h3>View cats of all types, some in funny situations</h3>
       
-      {currentImage ? (
+      {catInfo.image ? (
         <img
           className="catImage"
-          src={currentImage}
+          src={catInfo.image}
           alt="Screenshot returned"
         />
       ) : (
         <div> </div>
       )}
-      <button>{catInfo.life_span}</button>
-      <button>{catInfo.origin}</button>
-      <button>{catInfo.weight}</button>
+      <div className='info'>
+        <strong>Life Span: </strong><button onClick={banAttribute("life_span", catInfo.life_span)}>{catInfo.life_span}</button>
+        <strong>Origin: </strong><button onClick={banAttribute("origin", catInfo.origin)}>{catInfo.origin}</button>
+        <strong>Weight: </strong><button onClick ={banAttribute("weight", catInfo.weight)}>{catInfo.weight}</button>
+      </div>
 
-      <button type='submit' className='button' onClick={makeQuery}>Show that cat!🎞</button>
+      <button type='submit' className='button' onClick={makeQuery}>Show that cat! 😺</button>
     
       <div className="container">
-        <PreviousCats images={prevImages} />
+        <PreviousCats catInfo={prevInfo} />
+        {/* <BanCats banList={banList} setBanList={setBanList}/> */}
       </div>
     </>
   )

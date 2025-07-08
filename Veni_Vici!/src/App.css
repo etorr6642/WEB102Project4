@@ -41,7 +41,18 @@
   color: #888;
 }
 
-.catImage{
+.catImage, .gallery-screenshot{
   width: 200px;
   height: 200px;
+  
+}
+.info {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.gallery{
+  list-style-type: none;
 }

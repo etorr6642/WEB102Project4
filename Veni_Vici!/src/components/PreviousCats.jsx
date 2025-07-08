@@ -1,21 +1,26 @@
-const PreviousCats = ({ images }) => {
+const PreviousCats = ({catInfo}) => {
 
   return (
     <div>
         <h2> Previous cats seen!</h2>
         <div className="image-container">
-            {images && images.length > 0 ? (
-                images.map((pic, index) => (
-                    <li className="gallery" key={index}>
+            {catInfo && catInfo.length > 0 ? (
+                catInfo.slice().reverse().map((catInfo, index) => (
+                   <li className="gallery" key={index}>
                         <img
-                        className="gallery-screenshot"
-                        src={pic}
-                        alt="Undefined screenshot from query"
-                        width="500"
-                        />
-                    </li>
-                )
-            )
+                            className="gallery-screenshot"
+                            src={catInfo.image}
+                            alt="Previous cat"
+                            width="500"
+                        />                    
+                            <div className="info">
+                            <strong>Life Span:</strong> {catInfo.life_span}
+                            <strong>Origin:</strong> {catInfo.origin}
+                            <strong>Weight:</strong> {catInfo.weight}
+                            </div>
+                        
+            </li>
+          ))
             ):(
             <div>
                 <h3>You haven't seed any cats yet!</h3>
