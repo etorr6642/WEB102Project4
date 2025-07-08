@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import PreviousCats from './components/PreviousCats';
 import BanCats from './components/BanCats';
@@ -7,9 +7,7 @@ const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
 function App() {
   // State variables for current image, previous images, and ban images
-  const [currentImage, setCurrentImage] = useState(null);
-  const [prevImages, setPrevImages] = useState([]);
-  const [banList, setBanList] = useState({life_span:"", origin: "", weight:""});
+  const [banList, setBanList] = useState({life_span:[], origin: [], weight:[]});
   const [catInfo, setCatInfo]= useState({image: "",life_span:"", origin: "", weight:""})
   const [prevInfo, setPrevInfo]= useState([])
  
@@ -53,10 +51,23 @@ function App() {
   }
 
   const banAttribute =(type, value)=>{
-    // setBanList(prev=>({
-    //   ...prev, [type]: [new Set([...prev[type],value])]
-    // }));
+    setBanList(prev=>{
+      const existing = prev[type]||[];
+      if(existing.includes(value)){
+        return prev;
+      }
+      return{
+        ...prev,
+        [type]: [...existing, value]
+      };
+    });
   };
+
+  useEffect(()=>{
+    console.log("updated ban list", banList);
+  },[banList]);
+
+  
 
 
   return (
@@ -75,16 +86,16 @@ function App() {
         <div> </div>
       )}
       <div className='info'>
-        <strong>Life Span: </strong><button onClick={banAttribute("life_span", catInfo.life_span)}>{catInfo.life_span}</button>
-        <strong>Origin: </strong><button onClick={banAttribute("origin", catInfo.origin)}>{catInfo.origin}</button>
-        <strong>Weight: </strong><button onClick ={banAttribute("weight", catInfo.weight)}>{catInfo.weight}</button>
+        <strong>Life Span: </strong><button onClick={()=>banAttribute("life_span", catInfo.life_span)}>{catInfo.life_span}</button>
+        <strong>Origin: </strong><button onClick={()=>banAttribute("origin", catInfo.origin)}>{catInfo.origin}</button>
+        <strong>Weight: </strong><button onClick ={()=>banAttribute("weight", catInfo.weight)}>{catInfo.weight}</button>
       </div>
 
       <button type='submit' className='button' onClick={makeQuery}>Show that cat! 😺</button>
     
       <div className="container">
         <PreviousCats catInfo={prevInfo} />
-        {/* <BanCats banList={banList} setBanList={setBanList}/> */}
+        <BanCats banList={banList} setBanList={setBanList}/>
       </div>
     </>
   )

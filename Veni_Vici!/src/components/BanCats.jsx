@@ -1,48 +1,48 @@
 //this component bans displaying cats when an attribute is clicked on
+import { useState, useEffect } from 'react'
 
-const BanCats =({banCatInfo, setBanCatInfo})=>{
-    const addToBanList=(type, value)=>{
-        if(!value){
-            return;
-        }
-
-        setBanCatInfo(prev=>({
-            ...prev, [type]:[new Set([...prev[type],value])]
-        }));
-    };
-
+const BanCats =({banList, setBanList})=>{
+   
     const removeFromBan= (type,value)=>{
-        setBanCatInfo(prev=>({
+        setBanList(prev=>({
             ...prev, [type]: prev[type].filter(item=> item!=value)
         }));
     };
+
+    
 
     return(
         <>
         <div className="ban-info">
             <h3>Ban Attribute List</h3>
-            <div>
-                <strong>Banned Life Span: </strong>
-                    {banCatInfo.life_span.lenght>0?(
-                        <ul>
-                        {banCatInfo.life_span.map((life_span,index)=>
-                            <li key={index}>
-                            <button onClick={()=>removeFromBan("life_span", life_span)}>{life_span}</button>
-                            </li>
-                        )}
+      
+
+            {["origin", "life_span", "weight"].map((type)=>(
+                <div key={type}>
+                    <h3>{type.replace('_',' ').replace(/^\w/, c=>c.toUpperCase())}</h3>
+                    {banList[type] && banList[type].length>0?(
+                        <ul className ='gallery'>
+                            {banList[type].map((value,index)=>(
+                                <li key={index}>
+                                    <span className='ban-item'>{value}|</span>
+                                    <button onClick={()=>removeFromBan(type, value)} className = 'unban-button'>Remove</button>
+                                </li>
+                            ))}
                         </ul>
-                ) : (
-                    <p>No breeds banned</p>
-                )}
-            </div>
+                        ):(
+                            <p>no banned {type}</p>
+                        )}
+                    </div>
+                    
+
+            ))}
 
             
 
         </div>
         
         </>
-    )
-
-}
+    );
+};
 
 export default BanCats;
