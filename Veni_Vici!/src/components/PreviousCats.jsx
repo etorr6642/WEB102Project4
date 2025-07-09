@@ -1,10 +1,13 @@
+// displays pervious cats seen
 const PreviousCats = ({catInfo}) => {
 
   return (
     <div>
         <h2> Previous cats seen!</h2>
         <div className="image-container">
+          {/* show previous cats if available, else display message */}
             {catInfo && catInfo.length > 0 ? (
+              // allow most recent cat to show up first
                 catInfo.slice().reverse().map((catInfo, index) => (
                    <li className="gallery" key={index}>
                         <img

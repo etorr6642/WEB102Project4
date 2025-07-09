@@ -24,10 +24,11 @@ function App() {
       const json = await response.json();
       const data = json[0];
       
-
+      //check that data exists
       if (!json[0]||!json[0].url) {
         alert("Oops! Something went wrong with that query, let's try again!");
       } else {
+        //if data exist but ban element found, recall query (5 times max)
         if((banList.origin.includes(json[0].breeds[0].origin))||(banList.life_span.includes(json[0].breeds[0].life_span))||(banList.weight.includes(json[0].breeds[0].weight.metric && attempts<10))){
           console.log('banned attribute found. Recalling query');
           attempts++;
@@ -35,9 +36,11 @@ function App() {
             alert("Couldn't find an unbanned cat after 5 tries");
             return;
           }else{
+            //if ban element, call query
             makeQuery();
           }
         }else{
+          //valid data found, set information to current and previous
           attempts=0;
           setCatInfo({image: json[0].url, life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric });
           setPrevInfo((info) => [...info, {image: json[0].url, life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric }]);
@@ -57,6 +60,7 @@ function App() {
     callAPI(query).catch(console.error);
   }
 
+  //adds value to ban list by type, will not add if already present
   const banAttribute =(type, value)=>{
     setBanList(prev=>{
       const existing = prev[type]||[];
@@ -70,6 +74,7 @@ function App() {
     });
   };
 
+  //updates banList every time it changes, displays on console log
   useEffect(()=>{
     console.log("updated ban list", banList);
   },[banList]);
@@ -81,7 +86,7 @@ function App() {
     <>
       
       
-      
+      {/* current cat information and data */}
       <div className="currentCat">
       <h1>cats, Cats, & more CATS!!!</h1>
       <h3>View cats of all types, some in funny situations.</h3>
@@ -101,8 +106,10 @@ function App() {
         <strong>Weight: </strong><button onClick ={()=>banAttribute("weight", catInfo.weight)}>{catInfo.weight}</button>
       </div>
 
+      {/* button to make another query */}
       <button type='submit' className='button' onClick={makeQuery}>Show that cat! 😺</button>
     
+    {/* container for previous cats shown and banList */}
     </div>
       <div className="container">
         <div className='catInfo'>
