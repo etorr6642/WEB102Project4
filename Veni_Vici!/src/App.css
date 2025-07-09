@@ -1,0 +1,61 @@
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: lightblue;
+  color: black
+}
+
+
+
+.catImage, .gallery-screenshot{
+  width: 300px;
+  height: 300px;
+  
+  
+}
+.info {
+  text-align: left;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px 10px;
+}
+
+.gallery{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  padding: 30px 30px;
+}
+
+.container{
+  display: flex;
+}
+
+.currentCat{
+  border-radius: 75px;
+  border-color: black;
+  border-style: solid;
+  padding: 50px 50px;
+}
+
+.catInfo{
+  margin: 0px;
+}
+
+.banList{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.ban-gallery{
+  list-style-type: none;
+  text-align: right;
+  
+}
+
+.currentInfo{
+  padding-top: 30px;
+}
+

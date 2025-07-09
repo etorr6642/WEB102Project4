@@ -1,1 +1,71 @@
-# WEB102Project4
+# Web Development Project 4 - cats, Cats, and CATS!
+
+Submitted by: Edward Torres
+
+This web app: This app allows the user to display cats using catAPI. It displays cats one at a time and show three attributes: Life Span, Origin, and Weight. The user can ban specific attributes which will filter cats with that attribute from showing up. The user can also undo a ban by clicking "Remove". A list of previous cats shown is presented as well. 
+
+Time spent: **10** hours spent in total
+
+## Required Features
+
+The following **required** functionality is completed: 
+
+- [x] **Application features a button that creates a new API fetch request on click and displays at least three attributes and an image obtained from the returned JSON data**
+  - The type of attribute displayed for each image should be consistent across API calls (i.e. if you are using a cat API, and display the color, breed, and age in response to an initial API call, subsequent button clicks should also result in the color, breed, and age being displayed)
+- [x] **Only one item/data from API call response is viewable at a time and at least one image is displayed per API call**
+  - A single result of an API call is displayed at a time 
+  - Displayed attributes should match the displayed image (i.e., if showing a picture of a Siamese cat and the attribute breed, the displayed breed should be 'Siamese' not 'Ragdoll' or another breed that doesn't match)
+  - There is at least one image per API call
+- [x] **API call response results should appear random to the user**
+  - Clicking on the API call button should generate a seemingly random new result each time
+  - Note: Repeat results are permitted but the API used should have a reasonably large amount of data and repeats should not be frequent
+- [x] **Clicking on a displayed value for one attribute adds it to a displayed ban **list**
+  - At least one attribute for each API result should be clickable
+  - Clicking on a clickable attribute not on the ban list, should imnmediately add it to the ban list 
+  - Clicking on an attribute in the ban list should immediately remove it from the ban list 
+- [x] **Attributes on the ban list prevent further images/API results with that attribute from being displayed**
+  - Clicking on the API call button should not result in any image/attributes with attribute values in the ban list being displayed (ex. Using a cat API, if the ban list includes the value 'Siberian' for the breed attribute, clicking on the Discover button should never result in a Siberian cat being displayed)
+  - Note: More attribute values on the ban list may result in a higher frequency of repeat results
+  -  [x] _To ensure an accurate grade, your recording **must** show that when clicked, an attribute in the ban list is immediately removed from the list of banned attributes_
+
+
+The following **optional** features are implemented:
+
+- [x] Multiple types of attributes are clickable and can be added to the ban list
+- [x] Users can see a stored history of their previously displayed  results from this session
+  - A dedicated section of the application displays all the previous images/attributes seen before
+  - Each time the API call button is clicked, the history updates with the newest API result
+
+The following **additional** features are implemented:
+
+* [x] Bans are listed by attribute (origin, Life Span, and Weight)
+* [x] Previous cats are shown by most recent first
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+https://i.imgur.com/ThuXabn.gif
+
+<!-- Replace this with whatever GIF tool you used! -->
+GIF created with ScreenToGif  
+
+## Notes
+
+I ran into many challenges when building this app. First, it was navigating the catAPI json that was returned. It took some time being able to call the informtion in the Breeds section as the only way to access it was to use code like json[0].breeds[0].origin. I also had trouble display the correct attributes. After I got the Previous Cats Seen section working, cats were being displayed with incorrect data. I original had two state variables, one for url and one for cat attributes. After I combined them into the same state variable and the data matched. Another issue I had was banning item. This part took longer than the rest as I wanted to give the user the opportunity to ban any one of the three attributes. After some research, I finally got the ban items working but had to implement a check on the number of times the API was called if a ban showed up. 
+
+## License
+
+    Copyright 2025 Edward Torres
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
