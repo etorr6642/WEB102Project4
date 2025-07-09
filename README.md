@@ -2,9 +2,9 @@
 
 Submitted by: Edward Torres
 
-This web app: **insert description**
+This web app: This app allows the user to display cats using catAPI. It displays cats one at a time and show three attributes: Life Span, Origin, and Weight. The user can ban specific attributes which will filter cats with that attribute from showing up. The user can also undo a ban by clicking "Remove". A list of previous cats shown is presented as well. 
 
-Time spent: **8** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
@@ -38,7 +38,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] Bans are listed by attribute (origin, Life Span, and Weight)
+* [x] Previous cats are shown by most recent first
 
 ## Video Walkthrough
 
@@ -51,10 +52,7 @@ GIF created with ScreenToGif
 
 ## Notes
 
-Describe any challenges encountered while building the app.
-- API call
-- displaying correct attributes
-- banning items
+I ran into many challenges when building this app. First, it was navigating the catAPI json that was returned. It took some time being able to call the informtion in the Breeds section as the only way to access it was to use code like json[0].breeds[0].origin. I also had trouble display the correct attributes. After I got the Previous Cats Seen section working, cats were being displayed with incorrect data. I original had two state variables, one for url and one for cat attributes. After I combined them into the same state variable and the data matched. Another issue I had was banning item. This part took longer than the rest as I wanted to give the user the opportunity to ban any one of the three attributes. After some research, I finally got the ban items working but had to implement a check on the number of times the API was called if a ban showed up. 
 
 ## License
 
