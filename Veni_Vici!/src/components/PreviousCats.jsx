@@ -14,9 +14,9 @@ const PreviousCats = ({catInfo}) => {
                             width="500"
                         />                    
                             <div className="info">
-                            <strong>Life Span:</strong> {catInfo.life_span}
-                            <strong>Origin:</strong> {catInfo.origin}
-                            <strong>Weight:</strong> {catInfo.weight}
+                            <p><strong>Life Span:</strong> {catInfo.life_span}</p>
+                            <p><strong>Origin:</strong> {catInfo.origin}</p>
+                            <p><strong>Weight:</strong> {catInfo.weight}</p>
                             </div>
                         
             </li>

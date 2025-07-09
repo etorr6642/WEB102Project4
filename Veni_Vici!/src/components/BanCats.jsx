@@ -21,10 +21,10 @@ const BanCats =({banList, setBanList})=>{
                 <div key={type}>
                     <h3>{type.replace('_',' ').replace(/^\w/, c=>c.toUpperCase())}</h3>
                     {banList[type] && banList[type].length>0?(
-                        <ul className ='gallery'>
+                        <ul className ='ban-gallery'>
                             {banList[type].map((value,index)=>(
                                 <li key={index}>
-                                    <span className='ban-item'>{value}|</span>
+                                    <span className='ban-item'>{value}</span>
                                     <button onClick={()=>removeFromBan(type, value)} className = 'unban-button'>Remove</button>
                                 </li>
                             ))}
