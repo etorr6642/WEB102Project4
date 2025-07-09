@@ -31,7 +31,12 @@ function App() {
         if((banList.origin.includes(json[0].breeds[0].origin))||(banList.life_span.includes(json[0].breeds[0].life_span))||(banList.weight.includes(json[0].breeds[0].weight.metric && attempts<10))){
           console.log('banned attribute found. Recalling query');
           attempts++;
-          makeQuery();
+          if(attempts>=5){
+            alert("Couldn't find an unbanned cat after 5 tries");
+            return;
+          }else{
+            makeQuery();
+          }
         }else{
           attempts=0;
           setCatInfo({image: json[0].url, life_span: json[0].breeds[0].life_span, origin: json[0].breeds[0].origin, weight:json[0].breeds[0].weight.metric });
